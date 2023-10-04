@@ -1,43 +1,20 @@
-import { ClerkProvider } from "@clerk/nextjs";
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import Navbar from "@/components/shared/navbar/Navbar";
 import React from "react";
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter",
-});
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-inter",
-});
 
-export const metadata: Metadata = {
-  title: "Dev Overflow",
-  description: "Community Platform for Software Developers",
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <main className="background-light850_dark100 relative">
+      <Navbar />
+      <div className="flex">
+        LeftSidebar
+        <section className="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-36 max-md:pb-14 sm:px-14">
+          <div className="mx-auto w-full max-w-5xl">{children}</div>
+        </section>
+        RightSidebar
+      </div>
+      Toaster
+    </main>
+  );
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <ClerkProvider
-      appearance={{
-        elements: {
-          formButtonPrimary: "primary-gradient",
-          footerActionLink: `primary-text-gradient hover:text-primary-500`,
-        },
-      }}
-    >
-      <html lang="en">
-        <body className={`${inter.className} ${spaceGrotesk.className}`}>
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
-  );
-}
+export default Layout;
