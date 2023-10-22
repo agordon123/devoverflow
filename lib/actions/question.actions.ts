@@ -26,7 +26,7 @@ export async function getQuestions(params: GetQuestionsParams) {
 export async function createQuestion(params: CreateQuestionParams) {
   try {
     connectToDb();
-
+    console.log(params);
     const { title, content, tags, author, path } = params;
 
     // Create the question
@@ -35,14 +35,13 @@ export async function createQuestion(params: CreateQuestionParams) {
       content,
       author,
     });
-
     const tagDocuments = [];
-
+    console.log(question);
     // Create the tags or get them if they already exist
     for (const tag of tags) {
       const existingTag = await Tag.findOneAndUpdate(
         { name: { $regex: new RegExp(`^${tag}$`, "i") } },
-        { $setOnInsert: { name: tag }, $push: { question: question._id } },
+        { $setOnInsert: { name: tag }, $push: { questions: question._id } },
         { upsert: true, new: true }
       );
 
@@ -51,7 +50,7 @@ export async function createQuestion(params: CreateQuestionParams) {
 
     await Question.findByIdAndUpdate(question._id, {
       $push: { tags: { $each: tagDocuments } },
-    }).then((res) => console.log(res));
+    });
 
     // Create an interaction record for the user's ask_question action
 
