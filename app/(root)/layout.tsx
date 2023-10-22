@@ -1,7 +1,7 @@
 import Navbar from "@/components/shared/navbar/Navbar";
 import React from "react";
-import LeftSidebar from "@/components/shared/sidebar/LeftSidebar";
-import RightSidebar from "@/components/shared/sidebar/RightSidebar";
+import LeftSidebar from "@/components/shared/LeftSidebar";
+import RightSidebar from "@/components/shared/RightSidebar";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="background-light850_dark100 relative">

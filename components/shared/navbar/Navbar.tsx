@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import GlobalSearch from "../search/GlobalSearch";
-
+import { GlobalSearchFilters } from "@/constants/filters";
 import MobileNav from "./MobileNavbar";
 import Theme from "./Theme";
 
@@ -21,7 +21,7 @@ const Navbar = () => {
           Dev <span className="text-primary-500">OverFlow</span>
         </p>
       </Link>
-      <GlobalSearch />
+      <GlobalSearch filters={GlobalSearchFilters} />
       <div className="flex-between gap-5">
         <Theme />
         <SignedIn>
