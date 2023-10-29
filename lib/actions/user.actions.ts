@@ -6,11 +6,25 @@ import { connectToDb } from "../mongoose";
 import {
   CreateUserParams,
   DeleteUserParams,
+  GetAllUsersParams,
+  GetUserByIdParams,
   UpdateUserParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
-export const getUserById = async (params: any): Promise<any> => {
+
+export const getAllUsers = async (params: GetAllUsersParams) => {
+  try {
+    connectToDb();
+    const { page, pageSize, filter, searchQuery } = params;
+    const users = await User.find({}).sort({ createdAt: -1 });
+    return { users };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+export const getUserById = async (params: GetUserByIdParams): Promise<any> => {
   try {
     connectToDb();
 
