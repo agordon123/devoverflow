@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 "use client";
 
 import Link from "next/link";
@@ -5,7 +6,7 @@ import RenderTag from "./RenderTag";
 
 import Image from "next/image";
 import React from "react";
-
+import { getQuestions } from "@/lib/actions/question.actions";
 const hotQuestions = [
   {
     _id: "1",

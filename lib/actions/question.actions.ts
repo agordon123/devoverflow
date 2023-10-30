@@ -3,10 +3,31 @@
 import Question from "@/database/question.model";
 import Tag from "@/database/tags.model";
 import { connectToDb } from "../mongoose";
-import { CreateQuestionParams, GetQuestionsParams } from "./shared.types";
+import {
+  CreateQuestionParams,
+  GetQuestionByIdParams,
+  GetQuestionsParams,
+} from "./shared.types";
 import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
 
+export async function getQuestionById(params: GetQuestionByIdParams) {
+  try {
+    connectToDb();
+    const { questionId } = params;
+    const question = Question.findById(questionId)
+      .populate({ path: "tags", model: Tag, select: "_id name" })
+      .populate({
+        path: "author",
+        model: User,
+        select: "_id clerkId name picture",
+      });
+
+    return question;
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function getQuestions(params: GetQuestionsParams) {
   try {
     connectToDb();
