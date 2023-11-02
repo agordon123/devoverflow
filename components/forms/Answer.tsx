@@ -26,8 +26,10 @@ interface Props {
 const Answer = ({ questionId, question, authorId }: Props) => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const editorRef = useRef(null);
+
   const { mode } = useTheme();
   const pathname = usePathname();
+
   const form = useForm<z.infer<typeof AnswerSchema>>({
     resolver: zodResolver(AnswerSchema),
     defaultValues: {
@@ -66,6 +68,7 @@ const Answer = ({ questionId, question, authorId }: Props) => {
             width={12}
             height={12}
           />
+          Generate an AI Answer
         </Button>
       </div>
       <Form {...form}>
@@ -129,7 +132,6 @@ const Answer = ({ questionId, question, authorId }: Props) => {
               className="primary-gradient w-fit text-white"
               disabled={isSubmitting}
             >
-              Generate an AI Answer
               {isSubmitting ? "Submitting..." : "Submit"}
             </Button>
           </div>

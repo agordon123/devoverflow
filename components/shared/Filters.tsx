@@ -15,7 +15,7 @@ interface FilterProps {
     value: string;
   }[];
   otherClasses?: string | undefined;
-  containerClasses: string;
+  containerClasses?: string;
 }
 const Filters = ({ filters, otherClasses, containerClasses }: FilterProps) => {
   return (
