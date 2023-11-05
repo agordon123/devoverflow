@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import { getTopInteractedTags } from "@/lib/actions/tag.tactions";
+import { getTopInteractedTags } from "@/lib/actions/tag.actions";
 import { Badge } from "../ui/badge";
 import RenderTag from "../shared/RenderTag";
 interface Props {

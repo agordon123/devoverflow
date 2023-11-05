@@ -1,6 +1,6 @@
 "use server";
 
-import { Answer } from "@/database/answer.model";
+import Answer from "@/database/answer.model";
 import { connectToDb } from "../mongoose";
 import {
   AnswerVoteParams,
@@ -13,7 +13,6 @@ import { revalidatePath } from "next/cache";
 export async function createAnswer(params: CreateAnswerParams) {
   try {
     connectToDb();
-
     const { content, author, question, path } = params;
 
     const newAnswer = await Answer.create({ content, author, question });

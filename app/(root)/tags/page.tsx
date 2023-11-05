@@ -1,11 +1,11 @@
 import React from "react";
-import { getAllTags } from "@/lib/actions/tag.tactions";
+import { getAllTags } from "@/lib/actions/tag.actions";
 import { TagFilters } from "@/constants/filters";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import Link from "next/link";
 import Filters from "@/components/shared/Filters";
-
 import NoResult from "@/components/shared/NoResult";
+
 const Page = async () => {
   const result = await getAllTags({});
   console.log(result.tags);
@@ -46,7 +46,7 @@ const Page = async () => {
                   <p className="small-medium text-dark400_light500 mt-3.5">
                     {" "}
                     <span className="body-semibold primary-text-gradient mr-2.5">
-                      {tag.questions.length}+ Questions
+                      {tag.questions.length} + Questions
                     </span>
                   </p>
                 </article>
