@@ -189,7 +189,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
     const { userId } = params;
 
     const user = await User.findOne({ clerkId: userId });
-
+    console.log(user);
     if (!user) {
       throw new Error("User not found");
     }
@@ -213,7 +213,7 @@ export async function getUserQuestions(params: GetUserStatsParams) {
 
     // eslint-disable-next-line no-unused-vars
     const { userId, page = 1, pageSize = 10 } = params;
-
+    // counts documents in the collection filtered by user id
     const totalQuestions = await Question.countDocuments({ author: userId });
 
     const userQuestions = await Question.find({ author: userId })

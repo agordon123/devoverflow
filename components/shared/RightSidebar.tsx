@@ -13,10 +13,10 @@ const hotQuestions = [
     title:
       "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
   },
-  { _id: "1", title: "How to use Next.js with Tailwind CSS?" },
-  { _id: "1", title: "Redux Toolkit Not Updating State as Expected" },
-  { _id: "1", title: "Async/Await Function Not Handling Errors Properly" },
-  { _id: "1", title: "How do I use express as a custom server in NextJS?" },
+  { _id: "2", title: "How to use Next.js with Tailwind CSS?" },
+  { _id: "3", title: "Redux Toolkit Not Updating State as Expected" },
+  { _id: "4", title: "Async/Await Function Not Handling Errors Properly" },
+  { _id: "5", title: "How do I use express as a custom server in NextJS?" },
 ];
 const popularTags = [
   {
