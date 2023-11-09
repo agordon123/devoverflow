@@ -23,7 +23,7 @@ export async function getUserById(params: any) {
     connectToDb();
 
     const { userId } = params;
-
+    console.log(params);
     const user = await User.findOne({ clerkId: userId });
 
     return user;
@@ -189,14 +189,14 @@ export async function getUserInfo(params: GetUserByIdParams) {
     const { userId } = params;
 
     const user = await User.findOne({ clerkId: userId });
-    console.log(user);
+
     if (!user) {
       throw new Error("User not found");
     }
 
     const totalQuestions = await Question.countDocuments({ author: user._id });
     const totalAnswers = await Answer.countDocuments({ author: user._id });
-    console.log(user, "user", totalAnswers, totalQuestions);
+
     return {
       user,
       totalQuestions,
