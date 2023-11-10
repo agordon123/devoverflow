@@ -1,23 +1,12 @@
 /* eslint-disable no-unused-vars */
-"use client";
 
 import Link from "next/link";
 import RenderTag from "./RenderTag";
 
 import Image from "next/image";
 import React from "react";
-import { getQuestions } from "@/lib/actions/question.actions";
-const hotQuestions = [
-  {
-    _id: "1",
-    title:
-      "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
-  },
-  { _id: "2", title: "How to use Next.js with Tailwind CSS?" },
-  { _id: "3", title: "Redux Toolkit Not Updating State as Expected" },
-  { _id: "4", title: "Async/Await Function Not Handling Errors Properly" },
-  { _id: "5", title: "How do I use express as a custom server in NextJS?" },
-];
+import { getTopQuestions } from "@/lib/actions/question.actions";
+
 const popularTags = [
   {
     _id: "1",
@@ -46,7 +35,8 @@ const popularTags = [
   },
 ];
 
-const RightSidebar = () => {
+const RightSidebar = async () => {
+  const hotQuestions = await getTopQuestions();
   return (
     <section
       className="custom-scrollbar background-light900_dark200 light-border 
@@ -57,7 +47,7 @@ const RightSidebar = () => {
         <div className="mt-7 flex w-full flex-col gap-[30px]">
           {hotQuestions.map((question) => (
             <Link
-              href={`/questions/${question._id}`}
+              href={`/question/${question._id}`}
               key={question._id}
               className="flex cursor-pointer items-center justify-between text-center"
             >

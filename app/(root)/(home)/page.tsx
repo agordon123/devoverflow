@@ -5,12 +5,12 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
-import { getQuestions } from "@/lib/actions/question.actions";
+import { getHotQuestions } from "@/lib/actions/question.actions";
 
 import Link from "next/link";
 
 export default async function Home() {
-  const result = await getQuestions({});
+  const hotResults = await getHotQuestions({});
 
   return (
     <>
@@ -43,8 +43,8 @@ export default async function Home() {
       <HomeFilters />
 
       <div className="mt-10 flex w-full flex-col gap-6">
-        {result.questions.length > 0 ? (
-          result.questions.map((question) => (
+        {hotResults.questions.length > 0 ? (
+          hotResults.questions.map((question) => (
             <QuestionCard
               key={question._id}
               _id={question._id}
