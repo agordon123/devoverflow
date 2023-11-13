@@ -20,7 +20,8 @@ import { FilterQuery } from "mongoose";
 export async function getQuestions(params: GetQuestionsParams) {
   try {
     connectToDb();
-    const { searchQuery } = params;
+    const { searchQuery, filter, page = 1, pageSize = 10 } = params;
+    const skipAmount = (page - 1) * pageSize;
     const query: FilterQuery<typeof Question> = {};
     if (searchQuery) {
       query.$or = [
@@ -28,12 +29,33 @@ export async function getQuestions(params: GetQuestionsParams) {
         { content: { $regex: new RegExp(searchQuery, "i") } },
       ];
     }
+
+    let sortOptions = {};
+    switch (filter) {
+      case "newest":
+        sortOptions = { createdAt: -1 };
+        break;
+      case "frequent":
+        sortOptions = { views: -1 };
+        break;
+      case "unanswered":
+        query.answers = { $size: 0 };
+        break;
+      case "recommended":
+        sortOptions = { upvotes: -1 };
+        break;
+      default:
+        break;
+    }
     const questions = await Question.find(query)
       .populate({ path: "tags", model: Tag })
       .populate({ path: "author", model: User })
-      .sort({ createdAt: -1 });
-
-    return { questions };
+      .skip(skipAmount)
+      .limit(pageSize)
+      .sort(sortOptions);
+    const totalQuestions = await Question.countDocuments(query);
+    const isNext = totalQuestions > skipAmount * pageSize;
+    return { questions, isNext };
   } catch (error) {
     console.log(error);
     throw error;

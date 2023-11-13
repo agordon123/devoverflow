@@ -1,5 +1,3 @@
-
-
 ## Getting Started
 
 This is a modern version of Stack Overflow, inspired by Javascript Mastery and their Pro course. https://courses.jsmastery.pro.
@@ -14,12 +12,17 @@ TinyMce for a Rich Text Editor
 Prism for code formatting.
 
 ## Project Status
-Project is about 35-40 % complete.
 
-## Next steps - 
+Project is about 66 % complete.
 
-Parse and Display Questions
-Create Answer Form
-Create Answer DB Model
-Implement Answer Creation
-Display All Answers
+## Next steps -
+
+Filtering Pages
+
+Pagination
+
+Global Search
+
+Badge SYstem
+
+Generate AI Answers
