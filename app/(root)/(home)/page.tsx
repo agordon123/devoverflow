@@ -5,12 +5,13 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
-import { getHotQuestions } from "@/lib/actions/question.actions";
+import { getQuestions } from "@/lib/actions/question.actions";
 
 import Link from "next/link";
+import { SearchParamsProps } from "@/types";
 
-export default async function Home() {
-  const hotResults = await getHotQuestions({});
+export default async function Home({ searchParams }: SearchParamsProps) {
+  const hotResults = await getQuestions({ searchQuery: searchParams.q });
 
   return (
     <>

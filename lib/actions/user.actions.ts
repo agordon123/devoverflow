@@ -23,7 +23,6 @@ export async function getUserById(params: any) {
     connectToDb();
 
     const { userId } = params;
-    console.log(params);
     const user = await User.findOne({ clerkId: userId });
 
     return user;
@@ -99,9 +98,16 @@ export async function getAllUsers(params: GetAllUsersParams) {
   try {
     connectToDb();
 
-    // const { page = 1, pageSize = 20, filter, searchQuery } = params;
+    const { searchQuery } = params;
+    const query: FilterQuery<typeof User> = {};
+    if (searchQuery) {
+      query.$or = [
+        { name: { $regex: new RegExp(searchQuery, "i") } },
+        { username: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
 
-    const users = await User.find({}).sort({ createdAt: -1 });
+    const users = await User.find(query).sort({ createdAt: -1 });
 
     return { users };
   } catch (error) {
@@ -152,7 +158,7 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
     connectToDb();
 
     // eslint-disable-next-line no-unused-vars
-    const { clerkId, page = 1, pageSize = 10, filter, searchQuery } = params;
+    const { clerkId, searchQuery } = params;
 
     const query: FilterQuery<typeof Question> = searchQuery
       ? { title: { $regex: new RegExp(searchQuery, "i") } }

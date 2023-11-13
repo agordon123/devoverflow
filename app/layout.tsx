@@ -14,12 +14,15 @@ const inter = Inter({
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-inter",
+  variable: "--font-spaceGrotesk",
 });
 
 export const metadata: Metadata = {
   title: "Dev Overflow",
   description: "Community Platform for Software Developers",
+  icons: {
+    icon: "/assets/images/site-logo.svg",
+  },
 };
 
 export default function RootLayout({

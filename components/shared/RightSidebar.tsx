@@ -6,6 +6,7 @@ import RenderTag from "./RenderTag";
 import Image from "next/image";
 import React from "react";
 import { getTopQuestions } from "@/lib/actions/question.actions";
+import { getMostPopularTags } from "@/lib/actions/tag.actions";
 
 const popularTags = [
   {
@@ -37,6 +38,7 @@ const popularTags = [
 
 const RightSidebar = async () => {
   const hotQuestions = await getTopQuestions();
+  const topTags = await getMostPopularTags();
   return (
     <section
       className="custom-scrollbar background-light900_dark200 light-border 
@@ -68,11 +70,11 @@ const RightSidebar = async () => {
         <div className="mt-16">
           <h3 className="h3-bold text-dark200_light900">Popular Tags</h3>
           <div className="mt-7 flex flex-col gap-4">
-            {popularTags.map((tag, idx) => (
+            {topTags.map((tag, idx) => (
               <RenderTag
                 key={idx}
                 _id={tag._id}
-                totalQuestions={tag.totalQuestions}
+                totalQuestions={tag.numberOfQuestions}
                 name={tag.name}
                 showCount
               />

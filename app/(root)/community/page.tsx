@@ -5,8 +5,9 @@ import React from "react";
 import { getAllUsers } from "@/lib/actions/user.actions";
 import Link from "next/link";
 import UserCard from "@/components/cards/UserCard";
-const Page = async () => {
-  const result = await getAllUsers({});
+import { SearchParamsProps } from "@/types";
+const Page = async ({ searchParams }: SearchParamsProps) => {
+  const result = await getAllUsers({ searchQuery: searchParams.q });
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">All Users</h1>

@@ -5,10 +5,13 @@ import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import Link from "next/link";
 import Filters from "@/components/shared/Filters";
 import NoResult from "@/components/shared/NoResult";
+import { SearchParamsProps } from "@/types";
 
-const Page = async () => {
-  const result = await getAllTags({});
-  console.log(result.tags);
+const Page = async ({ searchParams }: SearchParamsProps) => {
+  const result = await getAllTags({
+    searchQuery: searchParams.q,
+  });
+
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">All Tags</h1>
