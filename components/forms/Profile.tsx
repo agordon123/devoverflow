@@ -56,7 +56,7 @@ const Profile = ({ clerkId, user }: Props) => {
         },
         path: pathname,
       });
-      console.log(updateUser);
+
       router.back();
     } catch (error) {
       console.log(error);

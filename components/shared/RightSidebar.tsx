@@ -8,34 +8,6 @@ import React from "react";
 import { getTopQuestions } from "@/lib/actions/question.actions";
 import { getMostPopularTags } from "@/lib/actions/tag.actions";
 
-const popularTags = [
-  {
-    _id: "1",
-    name: "javascript",
-    totalQuestions: 5,
-  },
-  {
-    _id: "2",
-    name: "reactjs",
-    totalQuestions: 4,
-  },
-  {
-    _id: "3",
-    name: "nodejs",
-    totalQuestions: 3,
-  },
-  {
-    _id: "4",
-    name: "nextjs",
-    totalQuestions: 4,
-  },
-  {
-    _id: "5",
-    name: "typescript",
-    totalQuestions: 5,
-  },
-];
-
 const RightSidebar = async () => {
   const hotQuestions = await getTopQuestions();
   const topTags = await getMostPopularTags();
