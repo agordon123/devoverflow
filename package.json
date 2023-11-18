@@ -31,7 +31,7 @@
     "mongodb": "^6.1.0",
     "mongoose": "^7.6.3",
     "next": "latest",
-    "openai": "^4.15.4",
+    "openai": "^4.19.0",
     "prismjs": "^1.29.0",
     "query-string": "^8.1.0",
     "react": "latest",
