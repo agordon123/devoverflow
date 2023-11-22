@@ -9,6 +9,14 @@ import { getQuestions } from "@/lib/actions/question.actions";
 import Pagination from "@/components/shared/Pagination";
 import Link from "next/link";
 import { SearchParamsProps } from "@/types";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Dev Overflow | Home Page",
+  description: "Home page of Dev Overflow",
+  icons: {
+    icon: "/assets/images/site-logo.svg",
+  },
+};
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const hotResults = await getQuestions({
