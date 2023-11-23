@@ -18,6 +18,7 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { createAnswer } from "@/lib/actions/answer.actions";
 import { usePathname } from "next/navigation";
+import { toast } from "../ui/use-toast";
 
 interface Props {
   question: string;
@@ -68,9 +69,10 @@ const Answer = ({ question, questionId, authorId }: Props) => {
       return;
     }
     setIsSubmittingAI(true);
+    console.log(question);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}api/chatgpt`,
         {
           method: "POST",
           headers: {
@@ -79,15 +81,20 @@ const Answer = ({ question, questionId, authorId }: Props) => {
           body: JSON.stringify({ question }),
         }
       );
-      console.log(response);
+
       const aiAnswer = await response.json();
+      console.log("AI Answer:", aiAnswer);
       const formattedAnswer = aiAnswer.reply.replace(/\n/g, "<br />");
-      console.log(formattedAnswer, editorRef.current);
+
       if (editorRef.current) {
         const editor = editorRef.current as any;
         editor.setContent(formattedAnswer);
       }
-      // implement toast
+      return toast({
+        title: "AI Answer Generated",
+        description:
+          "The AI has generated an answer for you. Feel free to edit it and submit it as your answer.",
+      });
     } catch (error) {
       console.log(error);
     } finally {
