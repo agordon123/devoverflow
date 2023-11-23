@@ -33,7 +33,7 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
     const topTags = tagCountMap.map((tagCount) => tagCount._id);
 
     // Find the tag documents for the top tags
-    const topTagDocuments = await Tag.find({ _id: { $in: topTags } });
+    const topTagDocuments = await Tag.find({ _id: { $in: topTags } }).limit(3);
 
     return topTagDocuments;
   } catch (error) {
