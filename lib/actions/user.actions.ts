@@ -172,7 +172,7 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
     connectToDb();
 
     // eslint-disable-next-line no-unused-vars
-    const { clerkId, searchQuery, filter } = params;
+    const { clerkId, searchQuery, filter, pageSize = 20, page = 1 } = params;
 
     const query: FilterQuery<typeof Question> = searchQuery
       ? { title: { $regex: new RegExp(searchQuery, "i") } }
@@ -207,13 +207,15 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
       ],
     });
 
+    const isNext = user.saved.length > pageSize;
+
     if (!user) {
       throw new Error("User not found");
     }
 
     const savedQuestions = user.saved;
 
-    return { questions: savedQuestions };
+    return { questions: savedQuestions, isNext };
   } catch (error) {
     console.log(error);
     throw error;
@@ -350,6 +352,7 @@ export async function getUserAnswers(params: GetUserStatsParams) {
     throw error;
   }
 }
+export async function getTopRecommendedTags() {}
 // export async function getAllUsers(params: GetAllUsersParams) {
 //   try {
 //     connectToDb();
