@@ -240,53 +240,54 @@ export async function editQuestion(params: EditQuestionParams) {
     console.log(error);
   }
 }
-export async function getHotQuestions(params: GetQuestionsParams) {
+// export async function getHotQuestions(params: GetQuestionsParams) {
+//  try {
+//    connectToDb();
+//
+//    const aggregationPipeline: any[] = [
+//      {
+//        $addFields: {
+//          totalScore: { $add: ["$views", { $size: "$upvotes" }] }, // Assumes upvotes is an array
+//        },
+//      },
+//      {
+//        $lookup: {
+//          from: "tags",
+//          localField: "tags",
+//          foreignField: "_id",
+//          as: "tags",
+//        },
+//      },
+//      {
+//        $lookup: {
+//          from: "users", // Replace with your user collection name if different
+//          localField: "author",
+//          foreignField: "_id",
+//          as: "author",
+//        },
+//      },
+//      { $unwind: "$author" }, // Only necessary if you want each author as a separate document
+//      { $limit: 5 },
+//      { $sort: { totalScore: -1 } },
+//    ];
+//
+//    // Run the aggregation pipeline
+//    const questions = await Question.aggregate(aggregationPipeline);
+//    return { questions };
+//  } catch (error) {
+//    console.log(error);
+//    throw error;
+//  }
+// }
+export async function getHotQuestions() {
   try {
     connectToDb();
 
-    const aggregationPipeline: any[] = [
-      {
-        $addFields: {
-          totalScore: { $add: ["$views", { $size: "$upvotes" }] }, // Assumes upvotes is an array
-        },
-      },
-      {
-        $lookup: {
-          from: "tags",
-          localField: "tags",
-          foreignField: "_id",
-          as: "tags",
-        },
-      },
-      {
-        $lookup: {
-          from: "users", // Replace with your user collection name if different
-          localField: "author",
-          foreignField: "_id",
-          as: "author",
-        },
-      },
-      { $unwind: "$author" }, // Only necessary if you want each author as a separate document
-      { $limit: 5 },
-      { $sort: { totalScore: -1 } },
-    ];
-
-    // Run the aggregation pipeline
-    const questions = await Question.aggregate(aggregationPipeline);
-    return { questions };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-export async function getTopQuestions() {
-  try {
-    connectToDb();
-    const questions = await Question.find({})
+    const hotQuestions = await Question.find({})
       .sort({ views: -1, upvotes: -1 })
       .limit(5);
 
-    return { questions };
+    return hotQuestions;
   } catch (error) {
     console.log(error);
     throw error;
