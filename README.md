@@ -13,16 +13,8 @@ Prism for code formatting.
 
 ## Project Status
 
-Project is about 66 % complete.
+Project is about 95 % complete.
 
 ## Next steps -
 
-Filtering Pages
-
-Pagination
-
-Global Search
-
-Badge SYstem
-
-Generate AI Answers
+Configuring a virtual private server to enable the AI answer function to work - vercel's free tier does not allow for outside requests that take so long.
