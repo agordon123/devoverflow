@@ -15,3 +15,16 @@ export const ProfileSchema = z.object({
   portfolioWebsite: z.string().url(),
   location: z.string().min(5).max(50),
 });
+export const JobSchema = z.object({
+  id: z.string(),
+  employer_name: z.string(),
+  employer_logo: z.string().url(),
+  employer_website: z.string().url(),
+  job_employment_type: z.string(),
+  job_title: z.string(),
+  job_description: z.string(),
+  job_apply_link: z.string().url(),
+  job_city: z.string(),
+  job_state: z.string(),
+  job_country: z.string(),
+});

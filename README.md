@@ -13,8 +13,8 @@ Prism for code formatting.
 
 ## Project Status
 
-Project is about 95 % complete.
+100 % Complete
 
-## Next steps -
+## Issues
 
-Configuring a virtual private server to enable the AI answer function to work - vercel's free tier does not allow for outside requests that take so long.
+Generating AI Answers takes a paid vercel account. Working on setting up a subdomain of gordon-webdesign.com
