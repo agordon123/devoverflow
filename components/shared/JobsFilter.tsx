@@ -19,8 +19,14 @@ import React from "react";
 
 interface JobsFilterProps {
   countriesList: Country[];
+  otherClasses?: string | undefined;
+  containerClasses?: string;
 }
-const JobsFilter = ({ countriesList }: JobsFilterProps) => {
+const JobsFilter = ({
+  countriesList,
+  otherClasses,
+  containerClasses,
+}: JobsFilterProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -33,6 +39,7 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
 
     router.push(newUrl, { scroll: false });
   };
+  const paramFilter = searchParams.get("location");
   return (
     <div className="relative mt-11 flex w-full justify-between gap-5 max-sm:flex-col sm:items-center">
       <LocalSearchbar
@@ -42,8 +49,13 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
         placeholder="Job Title, Company, or Keywords"
         otherClasses="flex-1 max-sm:w-full"
       />
-      <Select onValueChange={(value) => handleUpdateParams(value)}>
-        <SelectTrigger className="body-regular light-border background-light800_dark300 text-dark500_light700 line-clamp-1 flex min-h-[56px] items-center gap-3 border p-4 sm:max-w-[210px]">
+      <Select
+        onValueChange={(value) => handleUpdateParams(value)}
+        defaultValue={paramFilter || undefined}
+      >
+        <SelectTrigger
+          className={`body-regular light-border background-light800_dark300 text-dark500_light700 border px-5 py-2.5 ${otherClasses}`}
+        >
           <Image
             src="/assets/icons/carbon-location.svg"
             alt="location"
@@ -55,14 +67,14 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
           </div>
         </SelectTrigger>
 
-        <SelectContent className="body-semibold max-h-[350px] max-w-[250px]">
+        <SelectContent className="small-regular text-dark500_light700 max-h-[350px] max-w-[250px] border-none bg-light-900 dark:bg-dark-300">
           <SelectGroup>
             {countriesList ? (
               countriesList.map((country: Country) => (
                 <SelectItem
                   key={country.name.common}
                   value={country.name.common}
-                  className="px-4 py-3"
+                  className="cursor-pointer focus:bg-light-800 dark:focus:bg-dark-400"
                 >
                   {country.name.common}
                 </SelectItem>
