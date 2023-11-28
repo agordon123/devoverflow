@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import qs from "query-string";
 import { BADGE_CRITERIA } from "@/constants";
 import { BadgeCounts } from "@/types";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -148,4 +149,18 @@ export function processJobTitle(title: string | undefined | null): string {
   const processedTitle = validWords.join(" ");
 
   return processedTitle;
+}
+export function handleCORS(response: Response) {
+  // Check environment and set headers accordingly
+  const origin =
+    process.env.NODE_ENV === "production"
+      ? "https://devoverflow.gordon-webdesign.com"
+      : "*";
+
+  response.headers.set("Access-Control-Allow-Origin", origin);
+  response.headers.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+  response.headers.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization"
+  );
 }
