@@ -9,6 +9,7 @@ export async function POST(req: Request) {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",

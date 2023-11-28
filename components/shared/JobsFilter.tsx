@@ -70,9 +70,9 @@ const JobsFilter = ({
         <SelectContent className="small-regular text-dark500_light700 max-h-[350px] max-w-[250px] border-none bg-light-900 dark:bg-dark-300">
           <SelectGroup>
             {countriesList ? (
-              countriesList.map((country: Country) => (
+              countriesList.map((country: Country, idx: number) => (
                 <SelectItem
-                  key={country.name.common}
+                  key={idx}
                   value={country.name.common}
                   className="cursor-pointer focus:bg-light-800 dark:focus:bg-dark-400"
                 >
