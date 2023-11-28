@@ -1,11 +1,19 @@
-import { NextResponse } from "next/server";
-import { handleCORS } from "@/lib/utils";
-export async function POST(req: Request) {
-  const response = NextResponse.next();
-  handleCORS(response);
-  const { question } = await req.json();
+import { NextApiRequest, NextApiResponse } from "next";
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://devoverflow.gordon-webdesign.com"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  // Return method not allowed for non-POST requests
+  if (req.method !== "POST") {
+    res.status(405).end(); // Method Not Allowed
+    return;
+  }
 
   try {
+    const { question } = req.body;
     const openAIResponse = await fetch(
       "https://api.openai.com/v1/chat/completions",
       {
@@ -32,11 +40,8 @@ export async function POST(req: Request) {
     );
     const data = await openAIResponse.json();
 
-    const reply = data.choices[0].message.content;
-    console.log(response);
-    console.log(reply);
-    return NextResponse.json({ reply });
+    res.status(200).json({ reply: data.choices[0].message.content });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 }
