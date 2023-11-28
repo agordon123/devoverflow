@@ -53,9 +53,7 @@ const JobsFilter = ({
         onValueChange={(value) => handleUpdateParams(value)}
         defaultValue={paramFilter || undefined}
       >
-        <SelectTrigger
-          className={`body-regular light-border background-light800_dark300 text-dark500_light700 border px-5 py-2.5 ${otherClasses}`}
-        >
+        <SelectTrigger className="body-regular light-border background-light800_dark300 text-dark500_light700 line-clamp-1 flex min-h-[56px] items-center gap-3 border p-4 sm:max-w-[210px]">
           <Image
             src="/assets/icons/carbon-location.svg"
             alt="location"
@@ -67,14 +65,14 @@ const JobsFilter = ({
           </div>
         </SelectTrigger>
 
-        <SelectContent className="small-regular text-dark500_light700 max-h-[350px] max-w-[250px] border-none bg-light-900 dark:bg-dark-300">
+        <SelectContent className="light-border background-light800_dark300 text-dark500_light700 max-h-[350px] max-w-[250px] bg-light-900  dark:border dark:bg-dark-300">
           <SelectGroup>
             {countriesList ? (
-              countriesList.map((country: Country) => (
+              countriesList.map((country: Country, idx: number) => (
                 <SelectItem
-                  key={country.name.common}
+                  key={idx}
                   value={country.name.common}
-                  className="cursor-pointer focus:bg-light-800 dark:focus:bg-dark-400"
+                  className="cursor-pointer bg-light-800 focus:bg-light-800 dark:bg-dark-500 dark:focus:bg-dark-500"
                 >
                   {country.name.common}
                 </SelectItem>
