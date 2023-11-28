@@ -71,7 +71,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
     setIsSubmittingAI(true);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}api/chatgpt`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
         {
           method: "POST",
           headers: {
