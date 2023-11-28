@@ -12,7 +12,7 @@ import { AnswerSchema } from "@/lib/validation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
-import { useRef, useState } from "react";
+import { useRef, useState, Suspense } from "react";
 import { useTheme } from "@/context/ThemeProvider";
 import { Button } from "../ui/button";
 import Image from "next/image";
@@ -69,7 +69,6 @@ const Answer = ({ question, questionId, authorId }: Props) => {
       return;
     }
     setIsSubmittingAI(true);
-    console.log(question);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}api/chatgpt`,
@@ -83,7 +82,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
       );
 
       const aiAnswer = await response.json();
-      console.log("AI Answer:", aiAnswer);
+      console.log("AI Answer:", aiAnswer, "response", response);
       const formattedAnswer = aiAnswer.reply.replace(/\n/g, "<br />");
 
       if (editorRef.current) {
@@ -198,5 +197,26 @@ const Answer = ({ question, questionId, authorId }: Props) => {
     </div>
   );
 };
+async function Reader({
+  reader,
+}: {
+  reader: ReadableStreamDefaultReader<any>;
+}) {
+  const { done, value } = await reader.read();
 
+  if (done) {
+    return null;
+  }
+
+  const text = new TextDecoder().decode(value);
+
+  return (
+    <span>
+      {text}
+      <Suspense>
+        <Reader reader={reader} />
+      </Suspense>
+    </span>
+  );
+}
 export default Answer;
